@@ -12,3 +12,11 @@ class ProductList(generics.ListCreateAPIView):
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
+
+class CompanyList(generics.ListCreateAPIView):
+    queryset = Product.objects.all().order_by('id')
+    serializer_class = ProductSerializer
+
+class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all().order_by('id')
+    serializer_class = ProductSerializer
