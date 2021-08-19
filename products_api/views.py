@@ -3,6 +3,7 @@
 # Create your views here.
 from rest_framework import generics
 from .serializers import ProductSerializer
+from .serializers import CompanySerializer
 from .models import Product
 
 class ProductList(generics.ListCreateAPIView):
