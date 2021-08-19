@@ -16,9 +16,9 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductSerializer
 
 class CompanyList(generics.ListCreateAPIView):
-    queryset = Product.objects.all().order_by('id')
+    queryset = Company.objects.all().order_by('id')
     serializer_class = CompanySerializer
 
 class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Product.objects.all().order_by('id')
+    queryset = Company.objects.all().order_by('id')
     serializer_class = CompanySerializer
