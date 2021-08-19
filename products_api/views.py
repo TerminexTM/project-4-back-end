@@ -5,6 +5,7 @@ from rest_framework import generics
 from .serializers import ProductSerializer
 from .serializers import CompanySerializer
 from .models import Product
+from .models import Company
 
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all().order_by('id')

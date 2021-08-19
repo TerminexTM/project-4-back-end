@@ -9,6 +9,7 @@ class Product(models.Model):
     category = models.CharField(max_length=32)
     business_name = models.CharField(max_length=32)
     business_id = models.IntegerField()
+    
 class Company(models.Model):
     name = models.CharField(max_length=32)
     password = models.CharField(max_length=32)
