@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['localhost','project-four-backend.herokuapp.com/']
 
 INSTALLED_APPS = [
     'corsheaders',
-    'res_framework',
+    'rest_framework',
     'products_api',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -90,7 +90,7 @@ DATABASES = {
     }
 }
 db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASE['default'].update(db_from_env)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
