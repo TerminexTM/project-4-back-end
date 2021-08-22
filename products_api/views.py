@@ -4,10 +4,10 @@
 from rest_framework import generics
 from .serializers import ProductSerializer
 from .serializers import CompanySerializer
-from .serializers import UserSerializer
+from .serializers import UserAccountSerializer
 from .models import Product
 from .models import Company
-from .models import User
+from .models import UserAccount
 
 
 from django.contrib.auth.hashers import make_password, check_password
@@ -33,13 +33,13 @@ class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanySerializer
 
 # User views
-class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all().order_by('id')
-    serializer_class = UserSerializer
+class UserAccountList(generics.ListCreateAPIView):
+    queryset = UserAccount.objects.all().order_by('id')
+    serializer_class = UserAccountSerializer
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all().order_by('id')
-    serializer_class = UserSerializer
+class UserAccountDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserAccount.objects.all().order_by('id')
+    serializer_class = UserAccountSerializer
 
 #Company Auth function
 def check_login(request):
@@ -67,8 +67,8 @@ def check_user_login(request):
         jsonRequest = json.loads(request.body)
         username = jsonRequest['username']
         password = jsonRequest['password']
-        if User.objects.get(username=username):
-            user = User.objects.get(username=username)
+        if UserAccount.objects.get(username=username):
+            user = UserAccount.objects.get(username=username)
             if check_password(password, user.password):
                 return JsonResponse({'id':user.id, 'username':user.username})
             else:

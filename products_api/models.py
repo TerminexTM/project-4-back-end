@@ -13,6 +13,6 @@ class Company(models.Model):
     name = models.CharField(max_length=1000, unique=True)
     password = models.CharField(max_length=1000)
 
-class User(models.Model):
+class UserAccount(models.Model):
     username = models.CharField(max_length=1000, unique=True)
     password = models.CharField(max_length=1000)

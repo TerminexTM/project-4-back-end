@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Product
 from .models import Company
-from .models import User
+from .models import UserAccount
 from django.contrib.auth.hashers import make_password, check_password
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -29,21 +29,21 @@ class CompanySerializer(serializers.ModelSerializer):
         company.save()
         return company
 
-class UserSerializer(serializers.ModelSerializer):
+class UserAccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'email', 'password')
+        model = UserAccount
+        fields = ('id', 'username', 'password')
 
-        def create(self, validated_data):
-            user = User.objects.create(
-            username = validated_data['username'],
-            password = make_password(validated_data['password'])
-            )
-            user.save()
-            return user
+    def create(self, validated_data):
+        user = UserAccount.objects.create(
+        username = validated_data['username'],
+        password = make_password(validated_data['password'])
+        )
+        user.save()
+        return user
 
-        def update(self,instance,validated_data):
-            user = User.objects.get(username=validated_data['username'])
-            user.password = make_password(validated_data["password"])
-            user.save()
-            return user
+    def update(self,instance,validated_data):
+        user = UserAccount.objects.get(username=validated_data['username'])
+        user.password = make_password(validated_data['password'])
+        user.save()
+        return user
