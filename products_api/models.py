@@ -12,3 +12,7 @@ class Product(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=1000, unique=True)
     password = models.CharField(max_length=1000)
+
+class User(models.Model):
+    username = models.CharField(max_length=1000, unique=True)
+    password = models.CharField(max_length=1000)
