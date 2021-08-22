@@ -4,15 +4,17 @@
 from rest_framework import generics
 from .serializers import ProductSerializer
 from .serializers import CompanySerializer
+from .serializers import UserSerializer
 from .models import Product
 from .models import Company
+from .models import User
 
 
 from django.contrib.auth.hashers import make_password, check_password
 from django.http import JsonResponse
 import json
 
-
+# Product Views
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
@@ -21,6 +23,7 @@ class ProductDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
 
+# Company Views
 class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all().order_by('id')
     serializer_class = CompanySerializer
@@ -29,6 +32,16 @@ class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all().order_by('id')
     serializer_class = CompanySerializer
 
+# User views
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all().order_by('id')
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all().order_by('id')
+    serializer_class = UserSerializer
+
+#Company Auth function
 def check_login(request):
     if request.method=='GET':
         return JsonResponse({})
@@ -41,6 +54,23 @@ def check_login(request):
             company = Company.objects.get(name=name)
             if check_password(password, company.password):
                 return JsonResponse({'id':company.id, 'name':company.name})
+            else:
+                return JsonResponse({})
+        else:
+            return JsonResponse({})
+# User Auth function
+def check_user_login(request):
+    if request.method=='GET':
+        return JsonResponse({})
+
+    if request.method=='PUT':
+        jsonRequest = json.loads(request.body)
+        username = jsonRequest['username']
+        password = jsonRequest['password']
+        if User.objects.get(username=username):
+            user = User.objects.get(username=username)
+            if check_password(password, user.password):
+                return JsonResponse({'id':user.id, 'username':user.username})
             else:
                 return JsonResponse({})
         else:
